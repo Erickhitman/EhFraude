@@ -1,0 +1,12 @@
+#Chave da API
+Back-end/.env
+
+#Pastas para Ignorar
+Diagramas/
+Treino/
+Imagens/
+Telas/
+
+#Arquivos para ignorar
+EhFraude-inicio.css
+EhFraude-inicio.html
