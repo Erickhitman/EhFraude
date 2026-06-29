@@ -10,7 +10,8 @@ os.getcwd()
 os.getenv("IA_EhFraude")
 
 MODELO_PRINCIPAL = "llama-3.3-70b-versatile"
-MODELO_FALLBACK = "llama-3.1-8b-instant"
+MODELO_FALLBACK = "qwen/qwen3-32b"
+MODELO_FALLBACK2 = "qwen/qwen3.6-27b"
 MODELO = MODELO_PRINCIPAL
 LIMITE_CRITICO = 85
 
@@ -128,8 +129,55 @@ SYSTEM_PROMPT = EXEMPLOS_REAIS + (
     "Regras para as alternativas:\n"
     "- Gere quatro alternativas plausíveis (A, B, C e D), com apenas UMA correta.\n"
     "- A correta representa a atitude mais segura. Nunca a torne óbvia.\n"
+    "- NUNCA gere duas alternativas que sejam igualmente corretas ou defensivas.\n"
+    "- As alternativas incorretas devem ser claramente piores que a correta, mesmo que sutilmente.\n"
     "- Distribua a posição da resposta correta aleatoriamente entre A, B, C e D a cada desafio.\n"
     "- Cada alternativa deve ter uma justificativa curta, clara e educativa explicando por que está certa ou errada.\n\n"
+
+    "REGRAS PARA DIFICULTAR OS DESAFIOS:\n"
+    "- NUNCA use 'descartar', 'excluir', 'apagar' ou 'não interagir' como resposta correta.\n"
+    "- A resposta correta deve sempre exigir uma AÇÃO específica e inteligente do usuário.\n"
+    "- Crie cenários onde a ação correta é menos óbvia, como:\n"
+    "  * Ligar para o banco pelo número do cartão, não pelo número da mensagem\n"
+    "  * Acessar o app oficial e verificar se há notificação real\n"
+    "  * Registrar um boletim de ocorrência\n"
+    "  * Avisar familiares sobre o golpe\n"
+    "  * Bloquear o contato e reportar como spam\n"
+    "  * Verificar o CNPJ da empresa no site da Receita Federal\n"
+    "  * Confirmar com a pessoa pessoalmente antes de qualquer ação\n"
+    "- As alternativas erradas devem parecer razoáveis e seguras, mas ter uma falha sutil.\n"
+    "- Exemplo de alternativa errada convincente: 'Ligar para o número informado na mensagem para confirmar' — parece seguro mas o número pode ser falso.\n"
+    "- Em nível DIFICIL, todas as alternativas devem parecer corretas à primeira vista.\n"
+
+    "Hierarquia de segurança para definir a resposta correta:\n"
+    "1. Ignorar/deletar/não interagir é SEMPRE melhor que qualquer outra ação.\n"
+    "2. Verificar no site/app oficial vem em segundo lugar.\n"
+    "3. Ligar para número oficial (não o da mensagem) vem em terceiro.\n"
+    "4. Qualquer ação que envolva clicar em link, responder, transferir ou fornecer dados é SEMPRE errada.\n\n"
+    "NUNCA coloque 'descartar' e 'verificar no oficial' como alternativas no mesmo desafio, pois gera ambiguidade.\n"
+
+    "ORDEM DE PRIORIDADE OBRIGATÓRIA entre ações corretas:\n"
+    "1. Ligar para o número oficial (do cartão, do site, do contrato) — SEMPRE vence verificar no site\n"
+    "2. Acessar o app/site oficial digitando o endereço manualmente — vence qualquer outra ação\n"
+    "3. Registrar boletim de ocorrência — para casos de fraude já consumada\n"
+    "4. Avisar familiares ou o banco presencialmente — para golpes do tipo 'filho pedindo dinheiro'\n\n"
+    "REGRA DE OURO: Se você colocar 'ligar para número oficial' e 'verificar no site oficial' "
+    "como alternativas no MESMO desafio, o modelo TRAVA. NUNCA coloque as duas juntas.\n"
+    "Escolha UMA das duas e coloque a outra como alternativa errada com uma falha sutil, "
+    "como 'ligar para o número DA MENSAGEM' em vez do número oficial.\n"
+
+    "REGRAS DE VOCABULÁRIO:\n"
+    "- NUNCA use a palavra 'ignorar' nas alternativas.\n"
+    "- Substitua por: 'não responder', 'descartar', 'apagar', 'não interagir', 'excluir a mensagem'.\n"
+    "- Varie o vocabulário entre os desafios.\n\n"
+
+    "PROIBIDO usar como resposta correta:\n"
+    "- 'Descartar a mensagem'\n"
+    "- 'Excluir o e-mail'\n"
+    "- 'Apagar a mensagem'\n"
+    "- 'Não interagir'\n"
+    "- Qualquer variação passiva de 'não fazer nada'\n"
+    "A resposta correta SEMPRE deve ser uma ação inteligente e específica.\n\n"
 
     "Defina o nível de dificuldade com um destes valores: FACIL, MEDIO ou DIFICIL.\n\n"
 
@@ -146,13 +194,86 @@ SYSTEM_PROMPT = EXEMPLOS_REAIS + (
     '    "D": {"texto": "Texto da alternativa", "justificativa": "Explicação educativa"}\n'
     "  },\n"
     '  "resposta_correta": "A | B | C | D",\n'
-    '"explicacao": "Explicação geral sobre por que essa mensagem é um golpe.",\n'
+    '  "explicacao": "Explicação geral sobre por que essa mensagem é um golpe.",\n'
     '  "dica": "Dica curta para evitar golpes semelhantes."\n'
     "}\n\n"
 
     "Use a dificuldade e evite as categorias recentes informadas pelo contexto do jogador. "
     "Quanto mais acertos consecutivos, mais elaborada deve ser a mensagem fictícia, mesmo em nível FACIL."
 )
+
+TEMAS_EXTRAS = [
+    "golpe envolvendo delivery de comida",
+    "falsa promoção de supermercado",
+    "golpe de falso suporte técnico",
+    "fraude envolvendo seguro de carro",
+    "golpe de falso recrutador de emprego",
+    "fraude com QR code",
+    "golpe de falsa cobrança de condomínio",
+    "phishing disfarçado de nota fiscal",
+    "golpe de falso sorteio de celular",
+    "fraude com falso cashback",
+]
+
+def modelo_ia(client: Groq, texto: str, tentativas: int = 3) -> dict | None:
+    modelos = [
+        (MODELO_PRINCIPAL, SYSTEM_PROMPT, 0.9),
+        (MODELO_FALLBACK, SYSTEM_PROMPT + (
+            "\n\nATENÇÃO REDOBRADA: Você é um modelo menor e deve ser EXTREMAMENTE cuidadoso. "
+            "A resposta correta deve ser SEMPRE a atitude mais segura (ignorar, não clicar, não transferir, ligar no número oficial). "
+            "NUNCA marque como correta uma alternativa que envolva: clicar em links, transferir dinheiro, "
+            "responder dados pessoais, ligar para números da mensagem ou confiar no remetente. "
+            "Revise sua resposta_correta antes de responder.\n\n"
+            "REGRAS DE VOCABULÁRIO — OBRIGATÓRIO:\n"
+            "- A palavra 'ignorar' é PROIBIDA em todas as alternativas.\n"
+            "- Use exclusivamente: 'descartar', 'apagar', 'não interagir', 'excluir', 'não responder'.\n"
+            "- Se escrever 'ignorar', o desafio será inválido.\n"
+        ), 0.7),
+        (MODELO_FALLBACK2, SYSTEM_PROMPT + ( 
+            "\n\nATENÇÃO MÁXIMA: Você é o último recurso. Siga as instruções com precisão absoluta. "
+            "A resposta correta deve ser SEMPRE uma ação inteligente e específica. "
+            "NUNCA use respostas passivas como descartar, excluir ou não interagir. "
+            "NUNCA coloque 'ligar para número oficial' e 'verificar no site oficial' no mesmo desafio. "
+            "A palavra 'ignorar' é PROIBIDA."
+        ), 0.5)
+    ]
+
+    for modelo, prompt, temperature in modelos:
+        print(f"Usando modelo: {modelo}")
+        for tentativa in range(tentativas):
+            try:
+                completion = client.chat.completions.create(
+                    model=modelo,
+                    messages=[
+                        {"role": "system", "content": prompt},
+                        {"role": "user", "content": texto}
+                    ],
+                    temperature=temperature,
+                    response_format={"type": "json_object"}
+                )
+                desafio = json.loads(completion.choices[0].message.content)
+
+                campos = ["titulo", "categoria", "dificuldade", "mensagem", "alternativas", "resposta_correta", "dica"]
+                if all(campo in desafio for campo in campos):
+                    return desafio
+                else:
+                    print(f"Desafio incompleto na tentativa {tentativa + 1}. Tentando novamente...")
+                    continue
+
+            except RateLimitError:
+                print(f"⚠️ Rate limit no {modelo}. Trocando...")
+                break
+
+            except APIConnectionError:
+                print("Sem conexão.")
+                return None
+
+            except (APIStatusError, json.JSONDecodeError):
+                print(f"Tentativa {tentativa + 1}/{tentativas} falhou no {modelo}.")
+                if tentativa == tentativas - 1:
+                    print(f"Esgotou tentativas no {modelo}. Trocando...")
+
+    return None
 
 sessao = {
     "acertos_totais": 0,
@@ -162,7 +283,8 @@ sessao = {
     "dificuldade_atual": "FACIL",
     "categorias_vistas": [],
     "xp_total": 0,
-    "nivel": 1
+    "nivel": 1,
+    "temas_vistos": []
 }
 
 TEMPO_LIMITE = {"FACIL": 50, "MEDIO": 40, "DIFICIL": 30}
@@ -172,7 +294,6 @@ def calcular_xp(dificuldade: str, tempo: float, acertos_consecutivos: int) -> in
     limite = TEMPO_LIMITE[dificuldade]
     base = XP_BASE[dificuldade]
 
-    # Bonus de velocidade
     if tempo <= limite * 0.5:
         bonus_tempo = int(base * 0.5)
     elif tempo <= limite:
@@ -180,7 +301,6 @@ def calcular_xp(dificuldade: str, tempo: float, acertos_consecutivos: int) -> in
     else:
         bonus_tempo = 0
 
-    # Bonus de sequência
     bonus_sequencia = acertos_consecutivos * 5
 
     return base + bonus_tempo + bonus_sequencia
@@ -195,38 +315,7 @@ def calcular_nivel(xp_total: int) -> int:
         xp_necessario += 50
         nivel += 1
 
-    return (xp_acumulado + xp_necessario) - xp_total
-
-def modelo_ia(client: Groq, texto: str, tentativas: int = 3) -> dict | None:
-    for modelo in [MODELO_PRINCIPAL, MODELO_FALLBACK]:
-        for tentativa in range(tentativas):
-            try:
-                completion = client.chat.completions.create(
-                    model=modelo,
-                    messages=[
-                        {"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": texto}
-                    ],
-                    temperature=0.9,
-                    response_format={"type": "json_object"}
-                )
-                return json.loads(completion.choices[0].message.content)
-
-            except RateLimitError:
-                print(f"Rate limit atingido no {modelo}. Tentando próximo...")
-                break 
-
-            except APIConnectionError:
-                print("Sem conexão.")
-                return None
-
-            except (APIStatusError, json.JSONDecodeError):
-                print(f"Tentativa {tentativa + 1}/{tentativas} falhou no {modelo}.")
-                if tentativa == tentativas - 1:
-                    print(f"Esgotou tentativas no {modelo}. Tentando próximo...")
-
-    return None
-
+    return nivel, (xp_acumulado + xp_necessario) - xp_total
 
 def calcular_dificuldade(sessao: dict) -> str:
   if sessao["acertos_consecutivos"] >=3:
@@ -261,17 +350,55 @@ def atualizar_sessao(sessao: dict, acertou: bool, categoria: str) -> None:
 
 def montar_contexto(sessao: dict) -> str:
     categorias_evitar = ", ".join(sessao["categorias_vistas"]) or "Nenhuma"
+    temas_disponiveis = [t for t in TEMAS_EXTRAS if t not in sessao["temas_vistos"]]
+    if not temas_disponiveis:
+        sessao["temas_vistos"] = []  # reseta quando esgotar
+        temas_disponiveis = TEMAS_EXTRAS
     
+    tema_surpresa = random.choice(temas_disponiveis)
+    sessao["temas_vistos"].append(tema_surpresa)
+
     return (
         f"Acertos consecutivos: {sessao['acertos_consecutivos']}\n"
         f"Erros consecutivos: {sessao['erros_consecutivos']}\n"
         f"Acertos totais: {sessao['acertos_totais']}\n"
         f"Erros totais: {sessao['erros_totais']}\n"
         f"Dificuldade atual: {sessao['dificuldade_atual']}\n"
-        f"Categorias recentes a evitar: {categorias_evitar}\n\n"
+        f"Categorias recentes a evitar: {categorias_evitar}\n"
+        f"Tema sugerido para este desafio: {tema_surpresa}\n\n"
         f"Gere um desafio de dificuldade {sessao['dificuldade_atual']} "
+        f"sobre o tema '{tema_surpresa}' "
         f"que não seja das categorias: {categorias_evitar}."
     )
+
+def validar_desafio(desafio: dict) -> bool:
+    campos = ["titulo", "categoria", "dificuldade", "mensagem", "alternativas", "resposta_correta", "dica"]
+    if not all(campo in desafio for campo in campos):
+        print("Desafio incompleto.")
+        return False
+
+    for letra in ["A", "B", "C", "D"]:
+        alt = desafio["alternativas"].get(letra)
+        if not alt:
+            print(f"Alternativa {letra} ausente.")
+            return False
+        if not isinstance(alt, dict) or "texto" not in alt or "justificativa" not in alt:
+            print(f"Alternativa {letra} com formato inválido: {alt}")
+            return False
+
+    if desafio["resposta_correta"] not in ["A", "B", "C", "D"]:
+        print(f"Resposta correta inválida: {desafio['resposta_correta']}")
+        return False
+    
+    palavras_passivas = ["descartar", "excluir", "apagar", "não interagir", "não fazer nada"]
+    texto_correto = desafio["alternativas"][desafio["resposta_correta"]]["texto"].lower()
+    
+    for palavra in palavras_passivas:
+        if palavra in texto_correto:
+            print(f"Resposta correta muito passiva: '{texto_correto}'. Rejeitando...")
+            return False
+
+    return True
 
 def main():
     api_key = os.getenv("IA_EhFraude")
@@ -286,7 +413,7 @@ def main():
       contexto = montar_contexto(sessao)
       desafio = modelo_ia(client, contexto)
 
-      if not desafio:
+      if not desafio or not validar_desafio(desafio):
           print("Erro ao gerar desafio. Tente novamente.\n")
           continue
       
@@ -303,9 +430,6 @@ def main():
           letra for letra, alt in alternativas_mapeadas.items()
           if alt ["texto"] == texto_correto)
       
-      for letra, alt in alternativas_mapeadas.items():
-        print(f"{letra}) {alt['texto']}")
-
       print(f"\n--- {desafio['titulo']} ---")
       print(f"Categoria: {desafio['categoria']} | Dificuldade: {desafio['dificuldade']}")
       print(f"\n{desafio['mensagem']}\n")
@@ -334,24 +458,27 @@ def main():
       if acertou:
         xp_ganho = calcular_xp(desafio["dificuldade"], tempo_gasto, sessao["acertos_consecutivos"])
         sessao["xp_total"] += xp_ganho
-        nivel_novo = calcular_nivel(sessao["xp_total"])
+        nivel_novo, xp_faltando = calcular_nivel(sessao["xp_total"])  # <- desempacota a tupla
         print(f"\nCorreto! +{xp_ganho} XP (em {tempo_gasto:.1f}s)")
         print(f"{alternativa_escolhida['justificativa']}")
 
         if nivel_novo > sessao["nivel"]:
             sessao["nivel"] = nivel_novo
-            print(f"LEVEL UP! Você chegou ao nível {nivel_novo}!")
+            print(f" LEVEL UP! Você chegou ao nível {nivel_novo}!")
       else:
           print(f"\nErrado! Você escolheu {resposta}: {alternativa_escolhida['texto']}")
           print(f"Por que estava errado: {alternativa_escolhida['justificativa']}")
           print(f"\nA resposta correta era {resposta_correta}: {alternativas_mapeadas[resposta_correta]['texto']}")
           print(f"Por que está certa: {alternativas_mapeadas[resposta_correta]['justificativa']}")
 
+      atualizar_sessao(sessao, acertou, desafio["categoria"])
+      
       print(f"{desafio['explicacao']}")
       print(f"Dica: {desafio['dica']}")
       print(f"\nAcertos: {sessao['acertos_totais']} | Erros: {sessao['erros_totais']}")
-      print(f"XP: {sessao['xp_total']} | Faltam {calcular_nivel(sessao['xp_total'])} XP pro nível {sessao['nivel'] + 1}")
-
+      _, xp_faltando = calcular_nivel(sessao["xp_total"])
+      print(f"XP: {sessao['xp_total']} | Faltam {xp_faltando} XP pro nível {sessao['nivel'] + 1} \n")
+    time.sleep(2)
 
 if __name__ == "__main__":
     main()

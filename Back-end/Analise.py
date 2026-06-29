@@ -8,8 +8,8 @@ os.getcwd()
 os.getenv("IA_EhFraude")
 
 MODELO_PRINCIPAL = "llama-3.3-70b-versatile"
-MODELO_FALLBACK = "llama-3.1-8b-instant"
-MODELO = MODELO_PRINCIPAL
+MODELO_FALLBACK = "qwen/qwen3-32b"
+MODELO_FALLBACK2 = "qwen/qwen3.6-27b"
 LIMITE_CRITICO = 85
 
 SYSTEM_PROMPT = (
@@ -36,23 +36,29 @@ SYSTEM_PROMPT = (
 
 
 def modelo_ia(client: Groq, texto: str, tentativas: int = 3) -> dict | None:
-    for modelo in [MODELO_PRINCIPAL, MODELO_FALLBACK]:
+    modelos = [
+        (MODELO_PRINCIPAL, SYSTEM_PROMPT),
+        (MODELO_FALLBACK, SYSTEM_PROMPT),
+        (MODELO_FALLBACK2, SYSTEM_PROMPT),
+    ]
+
+    for modelo, prompt in modelos:
         for tentativa in range(tentativas):
             try:
                 completion = client.chat.completions.create(
                     model=modelo,
                     messages=[
-                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "system", "content": prompt},
                         {"role": "user", "content": texto}
                     ],
-                    temperature=0.9,
+                    temperature=0.2,  # <- baixo! análise precisa de consistência, não criatividade
                     response_format={"type": "json_object"}
                 )
                 return json.loads(completion.choices[0].message.content)
 
             except RateLimitError:
-                print(f"Rate limit atingido no {modelo}. Tentando próximo...")
-                break 
+                print(f"Rate limit no {modelo}. Trocando...")
+                break
 
             except APIConnectionError:
                 print("Sem conexão.")
@@ -61,10 +67,19 @@ def modelo_ia(client: Groq, texto: str, tentativas: int = 3) -> dict | None:
             except (APIStatusError, json.JSONDecodeError):
                 print(f"Tentativa {tentativa + 1}/{tentativas} falhou no {modelo}.")
                 if tentativa == tentativas - 1:
-                    print(f"Esgotou tentativas no {modelo}. Tentando próximo...")
+                    print(f"Esgotou tentativas no {modelo}. Trocando...")
 
     return None
 
+def validar_analise(dados: dict) -> bool:
+    campos = ["classificacao", "probabilidade_porcentagem", "motivos", "recomendacao"]
+    if not all(campo in dados for campo in campos):
+        return False
+    if dados["classificacao"] not in ["GOLPE", "SEGURO", "SUSPEITO"]:
+        return False
+    if not isinstance(dados["probabilidade_porcentagem"], int):
+        return False
+    return True
 
 def exibir_resultado(dados: dict) -> None:
     classificacao = dados.get("classificacao", "DESCONHECIDO")
@@ -95,6 +110,7 @@ def main():
     client = Groq(api_key=api_key)
     print("Analisador de Fraudes — Digite 'sair' para encerrar.\n")
 
+
     while True:
         texto = input("Insira a mensagem: ").strip()
 
@@ -107,8 +123,10 @@ def main():
             continue
 
         dados = modelo_ia(client, texto)
-        if dados:
+        if dados and validar_analise(dados):
             exibir_resultado(dados)
+        else:
+            print("Erro ao analisar mensagem. Tente novamente.\n")
 
 
 if __name__ == "__main__":
