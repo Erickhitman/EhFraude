@@ -478,7 +478,7 @@ def main():
       print(f"\nAcertos: {sessao['acertos_totais']} | Erros: {sessao['erros_totais']}")
       _, xp_faltando = calcular_nivel(sessao["xp_total"])
       print(f"XP: {sessao['xp_total']} | Faltam {xp_faltando} XP pro nível {sessao['nivel'] + 1} \n")
-    time.sleep(2)
+      time.sleep(2)
 
 if __name__ == "__main__":
     main()
