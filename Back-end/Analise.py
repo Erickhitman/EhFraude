@@ -7,7 +7,9 @@ load_dotenv()
 os.getcwd()
 os.getenv("IA_EhFraude")
 
-MODELO = "llama-3.3-70b-versatile"
+MODELO_PRINCIPAL = "llama-3.3-70b-versatile"
+MODELO_FALLBACK = "llama-3.1-8b-instant"
+MODELO = MODELO_PRINCIPAL
 LIMITE_CRITICO = 85
 
 SYSTEM_PROMPT = (
@@ -33,30 +35,34 @@ SYSTEM_PROMPT = (
 )
 
 
-def analisar_mensagem(client: Groq, texto: str) -> dict | None:
-    try:
-        completion = client.chat.completions.create(
-            model=MODELO,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": texto}
-            ],
-            temperature=0.0,
-            max_completion_tokens=1024,
-            top_p=1,
-            stream=False,
-            response_format={"type": "json_object"}
-        )
-        return json.loads(completion.choices[0].message.content)
+def modelo_ia(client: Groq, texto: str, tentativas: int = 3) -> dict | None:
+    for modelo in [MODELO_PRINCIPAL, MODELO_FALLBACK]:
+        for tentativa in range(tentativas):
+            try:
+                completion = client.chat.completions.create(
+                    model=modelo,
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": texto}
+                    ],
+                    temperature=0.9,
+                    response_format={"type": "json_object"}
+                )
+                return json.loads(completion.choices[0].message.content)
 
-    except RateLimitError:
-        print("Limite de requisições atingido. Aguarde e tente novamente.")
-    except APIConnectionError:
-        print("Sem conexão com a API da Groq.")
-    except APIStatusError as e:
-        print(f"Erro da API ({e.status_code}): {e.message}")
-    except json.JSONDecodeError as e:
-        print(f"Resposta inválida da IA: {e}")
+            except RateLimitError:
+                print(f"Rate limit atingido no {modelo}. Tentando próximo...")
+                break 
+
+            except APIConnectionError:
+                print("Sem conexão.")
+                return None
+
+            except (APIStatusError, json.JSONDecodeError):
+                print(f"Tentativa {tentativa + 1}/{tentativas} falhou no {modelo}.")
+                if tentativa == tentativas - 1:
+                    print(f"Esgotou tentativas no {modelo}. Tentando próximo...")
+
     return None
 
 
@@ -100,7 +106,7 @@ def main():
             print("Mensagem vazia. Tente novamente.\n")
             continue
 
-        dados = analisar_mensagem(client, texto)
+        dados = modelo_ia(client, texto)
         if dados:
             exibir_resultado(dados)
 
