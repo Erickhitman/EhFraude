@@ -287,7 +287,7 @@ sessao = {
     "temas_vistos": []
 }
 
-TEMPO_LIMITE = {"FACIL": 50, "MEDIO": 40, "DIFICIL": 30}
+TEMPO_LIMITE = {"FACIL": 40, "MEDIO": 30, "DIFICIL": 20}
 XP_BASE = {"FACIL": 10, "MEDIO": 25, "DIFICIL": 50}
 
 def calcular_xp(dificuldade: str, tempo: float, acertos_consecutivos: int) -> int:
@@ -478,7 +478,7 @@ def main():
       print(f"\nAcertos: {sessao['acertos_totais']} | Erros: {sessao['erros_totais']}")
       _, xp_faltando = calcular_nivel(sessao["xp_total"])
       print(f"XP: {sessao['xp_total']} | Faltam {xp_faltando} XP pro nível {sessao['nivel'] + 1} \n")
-      time.sleep(2)
+      time.sleep(4)
 
 if __name__ == "__main__":
     main()
