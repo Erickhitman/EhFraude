@@ -129,6 +129,6 @@ python Back-end/modo_treino.py
 
 | Nome | GitHub |
 |---|---|
-| Caio Figueiredo Santos | [@caio](https://github.com/Caioon9) |
-| Erick da Rocha Soares | [@erick](https://github.com/Erickhitman) |
-| Nicolas Geovane Baptista de Jesus | [@nicolas](https://github.com) |
+| Caio Figueiredo Santos | [@Caio](https://github.com/Caioon9) |
+| Erick da Rocha Soares | [@Erick](https://github.com/Erickhitman) |
+| Nicolas Geovane Baptista de Jesus | [@Nicolas](https://github.com/NicolasJesus67) |
