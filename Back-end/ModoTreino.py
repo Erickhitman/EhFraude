@@ -9,8 +9,8 @@ load_dotenv()
 os.getcwd()
 os.getenv("IA_EhFraude")
 
-MODELO_PRINCIPAL = "llama-3.3-70b-versatile"
-MODELO_FALLBACK = "qwen/qwen3-32b"
+MODELO_PRINCIPAL = "openai/gpt-oss-120b"
+MODELO_FALLBACK = "openai/gpt-oss-20b"
 MODELO_FALLBACK2 = "qwen/qwen3.6-27b"
 MODELO = MODELO_PRINCIPAL
 LIMITE_CRITICO = 85
