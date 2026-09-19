@@ -6,6 +6,17 @@
   padding: 0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
+
+
+.montserrat-<uniquifier> {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
 :root {
   --primary: #1a2e4a;
   --primary-mid: #243d5f;
@@ -49,7 +60,6 @@ body {
   max-width: 100vw;
 }
 
-/* ── SIDEBAR ── */
 .sidebar {
   grid-row: 1 / 3;
   background: var(--primary);
@@ -146,7 +156,6 @@ body {
   line-height: 1.5;
 }
 
-/* ── TOPBAR ── */
 .topbar {
   grid-column: 2;
   background: var(--card);
@@ -183,7 +192,6 @@ body {
   border-radius: 20px;
 }
 
-/* ── MAIN ── */
 .main {
   grid-column: 2;
   padding: 36px;
@@ -192,7 +200,6 @@ body {
   gap: 1.75rem;
 }
 
-/* ── PANEL (reused from index.html) ── */
 .panel {
   background: var(--card);
   border: 1px solid var(--border);
@@ -236,7 +243,6 @@ body {
   margin-bottom: 2px;
 }
 
-/* ── BADGES (reused from index.html) ── */
 .badge {
   padding: 7px 8px;
   border-radius: 8px;
@@ -260,7 +266,6 @@ body {
   color: var(--danger);
 }
 
-/* ── BUTTONS (reused from index.html) ── */
 .btn-secondary {
   background: var(--card);
   border: 1px solid var(--border);
@@ -277,7 +282,6 @@ body {
   background: var(--primary-light);
 }
 
-/* ── STATS ROW (reused from style.css, unused on index.html) ── */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -309,9 +313,6 @@ body {
   font-weight: 500;
 }
 
-/* ══════════════════════════════════════
-   PERFIL — específico desta página
-   ══════════════════════════════════════ */
 
 .profile-head {
   display: flex;
@@ -332,7 +333,7 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
   flex-shrink: 0;
-  font-family: "IM Fell English", serif;
+  font-family: "Monteserrat", serif;
 }
 
 .profile-name {
