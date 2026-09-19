@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EhFraude? — verificador de golpes com IA e treino gamificado. Projeto Integrador de Segurança Digital.">
+
+  <title>EhFraude? — Projeto Integrador</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="landing-nav">
+    <a class="brand" href="#topo">
+      <p>Eh<span>Fraude?</span></p>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#projeto">O projeto</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#telas">Telas</a>
+      <a href="#tecnologias">Tecnologias</a>
+      <a href="#equipe">Equipe</a>
+    </nav>
+
+    <a class="nav-cta" href="https://ehfraude.vercel.app/index.html">Acessar app</a>
+  </header>
+
+  <main id="topo">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="hero-badge">Projeto Integrador · Segurança Digital</span>
+
+        <h1>Descubra se é golpe <em>antes</em> de clicar.</h1>
+
+        <p class="hero-sub">
+          O EhFraude? é um verificador de links e mensagens que usa Inteligência
+          Artificial para classificar conteúdo como <strong>GOLPE</strong>,
+          <strong>SUSPEITO</strong> ou <strong>SEGURO</strong> — e ainda treina
+          você para reconhecer fraudes sozinho.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-light" href="https://ehfraude.vercel.app/index.html">Testar o verificador</a>
+          <a class="btn btn-ghost" href="https://github.com/Erickhitman/EhFraude">Ver no GitHub</a>
+        </div>
+
+        <ul class="hero-stats">
+          <li>
+            <strong>3</strong>
+            <span>classes de veredito</span>
+          </li>
+          <li>
+            <strong>IA</strong>
+            <span>Llama 3.3 70B + fallbacks</span>
+          </li>
+          <li>
+            <strong>100%</strong>
+            <span>treino gamificado</span>
+          </li>
+        </ul>
+      </div>
+
+      <figure class="hero-shot">
+        <img src="Imagens/Tela_inicial.png" alt="Tela inicial do EhFraude? com a área de análise e o indicador de segurança" width="1200" height="820" fetchpriority="high" />
+      </figure>
+    </section>
+
+    <section class="section" id="projeto">
+      <div class="section-head">
+        <h2>O projeto</h2>
+        <p>
+          Fraudes digitais crescem todos os anos no Brasil. O EhFraude? ataca o
+          problema por dois lados: análise imediata e educação preventiva.
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Objetivo</h3>
+          <p>
+            Reduzir o impacto de phishing, golpes via Pix, falsas centrais
+            bancárias e engenharia social, oferecendo veredito instantâneo com
+            explicação dos indícios encontrados.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Público-alvo</h3>
+          <p>
+            Usuários comuns de WhatsApp, bancos e redes sociais; pessoas com
+            pouca familiaridade técnica; idosos e famílias que querem conferir
+            uma mensagem suspeita antes de agir.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>Educação preventiva</h3>
+          <p>
+            Além do veredito, o sistema explica por que aquilo é golpe e ensina,
+            no modo treino gamificado, a reconhecer padrões de fraude sem
+            depender de ninguém.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="funcionalidades">
+      <div class="section-head">
+        <h2>Funcionalidades</h2>
+        <p>Dois módulos principais integrados ao mesmo painel web.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <h3>Detector com IA</h3>
+          <p>
+            Analisa links e mensagens e classifica como GOLPE, SUSPEITO ou
+            SEGURO, com probabilidade de fraude calculada por critério
+            acumulativo.
+          </p>
+        </div>
+        <div class="feat-card">
+          <h3>Veredito explicativo</h3>
+          <p>
+            Lista os principais indícios encontrados (domínio estranho, urgência,
+            pedido de dados) e recomenda ações seguras antes de clicar ou
+            responder.
+          </p>
+        </div>
+        <div class="feat-card">
+          <h3>Modo treino gamificado</h3>
+          <p>
+            Desafios inéditos gerados por IA, com XP, níveis, sequência de
+            acertos, bonificação por velocidade e dificuldade adaptativa.
+          </p>
+        </div>
+        <div class="feat-card">
+          <h3>Notícias e dicas</h3>
+          <p>
+            Feed com casos reais e orientações de segurança para o usuário ficar
+            um passo à frente dos golpistas.
+          </p>
+        </div>
+        <div class="feat-card">
+          <h3>Fallback de modelos</h3>
+          <p>
+            Se o modelo principal de IA falhar, modelos secundários assumem a
+            análise automaticamente, sem derrubar o serviço.
+          </p>
+        </div>
+        <div class="feat-card">
+          <h3>Web responsivo</h3>
+          <p>
+            Interface desktop e mobile com a mesma experiência, publicada em
+            hospedagem própria e versionada no GitHub.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="section-head">
+        <h2>Como funciona</h2>
+        <p>Três passos até o veredito.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Cole o conteúdo</h3>
+          <p>Envie um link ou a mensagem completa que você recebeu.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>A IA analisa</h3>
+          <p>O modelo avalia domínio, linguagem de urgência, pedidos de dados e outros indícios.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Receba a resposta</h3>
+          <p>Veredito GOLPE, SUSPEITO ou SEGURO com explicação e recomendações.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="telas">
+      <div class="section-head">
+        <h2>Telas</h2>
+        <p>Protótipos de baixa e alta fidelidade desenvolvidos para desktop e mobile.</p>
+      </div>
+      <div class="screens-grid">
+        <div class="screen">
+          <div class="screen-mock">
+            <img src="Imagens/Tela_inicial.png" alt="Tela inicial: campo para colar link ou mensagem e indicador de segurança">
+          </div>
+          <p>Início — verificador e indicador de segurança</p>
+        </div>
+        <div class="screen">
+          <div class="screen-mock">
+            <img src="Imagens/Tela_treino.png" alt="Modo treino: mensagem suspeita, alternativas de resposta e feedback">
+          </div>
+          <p>Modo treino — questão, feedback e progresso</p>
+        </div>
+        <div class="screen">
+          <div class="screen-mock">
+            <img src="Imagens/Tela_noticias.png" alt="Feed de notícias e dicas de segurança">
+          </div>
+          <p>Notícias — feed de casos e dicas</p>
+        </div>
+        <div class="screen">
+          <div class="screen-mock">
+            <img src="Imagens/Tela_perfil.png" alt="Feed de notícias e dicas de segurança">
+          </div>
+          <p>Perfil — configurações da conta</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tecnologias">
+      <div class="section-head">
+        <h2>Tecnologias</h2>
+        <p>Stack do projeto.</p>
+      </div>
+      <ul class="tech-list">
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>JavaScript</li>
+        <li>React (futuramente)</li>
+        <li>Python 3.12</li>
+        <li>Groq API</li>
+        <li>Llama 3.3 70B</li>
+        <li>Qwen (fallback)</li>
+        <li>Git &amp; GitHub</li>
+        <li>Vercel</li>
+      </ul>
+    </section>
+
+    <section class="section alt" id="equipe">
+      <div class="section-head">
+        <h2>Equipe</h2>
+        <p>Quem construiu o EhFraude?</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar">CF</div>
+          <h3>Caio Figueiredo Santos</h3>
+          <p>Project Owner e Desenvolvedor</p>
+        </div>
+        <div class="team-card">
+          <div class="avatar">ER</div>
+          <h3>Erick da Rocha Soares</h3>
+          <p>Scrum Master e Desenvolvedor</p>
+        </div>
+        <div class="team-card">
+          <div class="avatar">NJ</div>
+          <h3>Nicolas Geovane Baptista de Jesus</h3>
+          <p>Desenvolvedor</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <h2>Desconfiou de uma mensagem? Confira antes de clicar.</h2>
+          <p>
+            Acesse o verificador gratuito ou explore o código-fonte completo no
+            repositório do projeto.
+          </p>
+          <ul class="cta-links">
+            <li><a href="https://ehfraude.vercel.app/index.html">ehfraude.vercel.app</a></li>
+            <li><a href="https://github.com/Erickhitman/EhFraude">github.com/Erickhitman/EhFraude</a></li>
+          </ul>
+        </div>
+        <div class="hero-actions cta-actions">
+          <a href="https://ehfraude.vercel.app/index.html" class="btn btn-light">Acessar o aplicativo</a>
+          <a href="https://github.com/Erickhitman/EhFraude" class="btn btn-ghost">Repositório no GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <p>EhFraude? — Projeto Integrador · Segurança Digital e Inteligência Artificial</p>
+    <p>
+      Entrega:
+      <a href="https://github.com/Erickhitman/EhFraude">repositório</a> ·
+      <a href="https://ehfraude.vercel.app/index.html">website publicado</a>
+    </p>
+  </footer>
+</body>
+
+</html>
