@@ -324,6 +324,11 @@ body {
 }
 
 /* ── BUTTONS ── */
+.btn-primary,
+.btn-secondary {
+  text-decoration: none;
+}
+
 .btn-primary {
   width: 100%;
   background: var(--primary);
