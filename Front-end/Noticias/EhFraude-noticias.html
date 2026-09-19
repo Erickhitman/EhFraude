@@ -1,11 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EhFraude? — Notícias</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="EhFraude-noticias.css">
 </head>
+
 <body>
-    
+
+  <!-- Mobile-only header -->
+  <div class="mobile-header" style="display:none;">
+    <div class="logo">
+      <img src="/Imagens/Logo em azul Transparente.png" alt="logo">
+    </div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo"><img src="/Imagens/Logo em azul Transparente.png" alt="Logo"></div>
+        <p class="sidebar-tagline">Verifique links e mensagens suspeitas com inteligência artificial.</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="nav-label">Principal</p>
+        <a class="nav-item" href="/index.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Início
+        </a>
+        <a class="nav-item" href="/Treino/EhFraude-treino.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+          </svg>
+          Modo de Treino
+        </a>
+        <a class="nav-item active" href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          Noticias
+        </a>
+        <p class="nav-label" style="margin-top:20px;">Conta</p>
+        <a class="nav-item" href="/Perfil/EhFraude-perfil.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Perfil
+        </a>
+        <a class="nav-item" href="/Configuracoes/EhFraude-config.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
+          </svg>
+          Configurações
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>EhFraude? usa IA para auxiliar na detecção. Sempre revise as informações com cuidado.</p>
+      </div>
+    </aside>
+
+    <!-- ── TOPBAR ── -->
+    <header class="topbar">
+      <span class="topbar-title">Notícias sobre golpes digitais</span>
+      <div class="topbar-right">
+        <span class="topbar-badge">IA Ativa</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7f96" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </div>
+    </header>
+
+    <!-- ── MAIN ── -->
+    <main class="main">
+      <div class="two-col">
+
+        <!-- Grid de notícias -->
+        <div class="news-col">
+          <div class="news-grid">
+
+            <article class="news-card">
+              <div class="news-thumb">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M8 4v5" /></svg>
+              </div>
+              <div class="news-body">
+                <span class="news-tag">Pix</span>
+                <h3 class="news-title">Golpe do Pix por engano volta a crescer entre pequenos comerciantes</h3>
+                <p class="news-desc">Criminosos enviam comprovantes falsos e pedem a devolução de valores que nunca chegaram a ser transferidos.</p>
+                <p class="news-meta">Atualizado hoje</p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-thumb">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6l4 2" /><circle cx="12" cy="12" r="9" /></svg>
+              </div>
+              <div class="news-body">
+                <span class="news-tag">Voz sintética</span>
+                <h3 class="news-title">Golpes com clonagem de voz por IA preocupam famílias brasileiras</h3>
+                <p class="news-desc">Áudios gerados por inteligência artificial imitam parentes pedindo dinheiro com urgência para gerar pânico.</p>
+                <p class="news-meta">Atualizado ontem</p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-thumb">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3" /><path d="M8 9h8M8 13h5" /></svg>
+              </div>
+              <div class="news-body">
+                <span class="news-tag">Phishing</span>
+                <h3 class="news-title">Mensagens falsas de bancos usam domínios quase idênticos aos originais</h3>
+                <p class="news-desc">Golpistas registram endereços com pequenas trocas de letras para enganar até usuários mais atentos.</p>
+                <p class="news-meta">2 dias atrás</p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-thumb">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
+              </div>
+              <div class="news-body">
+                <span class="news-tag">Emprego</span>
+                <h3 class="news-title">Vagas de "home office fácil" continuam atraindo jovens em busca de renda extra</h3>
+                <p class="news-desc">Ofertas prometem ganhos rápidos mas pedem pagamento antecipado por materiais ou cadastro.</p>
+                <p class="news-meta">3 dias atrás</p>
+              </div>
+            </article>
+
+          </div>
+        </div><!-- /news-col -->
+
+        <!-- Coluna lateral: dicas -->
+        <div class="news-aside">
+          <div class="tips-card">
+            <p class="tips-title">Dicas de segurança</p>
+            <div class="tip-item">
+              <div class="tip-dot"></div>
+              <p>Desconfie de mensagens urgentes pedindo dados pessoais ou bancários.</p>
+            </div>
+            <div class="tip-item">
+              <div class="tip-dot"></div>
+              <p>Links encurtados (bit.ly, tinyurl) podem esconder destinos maliciosos.</p>
+            </div>
+            <div class="tip-item">
+              <div class="tip-dot"></div>
+              <p>Erros de português e domínios estranhos são sinais clássicos de golpe.</p>
+            </div>
+            <div class="tip-item">
+              <div class="tip-dot"></div>
+              <p>Nunca clique em links recebidos por WhatsApp de números desconhecidos.</p>
+            </div>
+          </div>
+          <p class="news-note">Notícias selecionadas automaticamente pela IA do EhFraude?.</p>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Mobile-only footer and navbar -->
+  <p class="mobile-footer" style="display:none;">A IA pode cometer erros</p>
+  <nav class="mobile-navbar" style="display:none;">
+    <a class="mobile-nav-item" href="/index.html">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7f96" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      <span>Início</span>
+    </a>
+    <a class="mobile-nav-item" href="/Treino/EhFraude-treino.html">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7f96" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      </svg>
+      <span>Treino</span>
+    </a>
+    <a class="mobile-nav-item active" href="#">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a2e4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+      </svg>
+      <span>Notícias</span>
+    </a>
+    <a class="mobile-nav-item" href="/Perfil/EhFraude-perfil.html">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7f96" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <span>Perfil</span>
+    </a>
+  </nav>
+
 </body>
+
 </html>
