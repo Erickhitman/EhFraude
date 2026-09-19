@@ -8,6 +8,10 @@
 
 ---
 
+**Website de apresentação:** [eh-fraudelandingpage.vercel.app](https://eh-fraudelandingpage.vercel.app)  
+**Aplicativo:** [ehfraude.vercel.app](https://ehfraude.vercel.app)  
+
+---
 ## Sobre o projeto
 
 O **EhFraude** é uma solução desenvolvida para auxiliar usuários na identificação e prevenção de golpes digitais utilizando Inteligência Artificial. O projeto combina um analisador de mensagens suspeitas com um modo de treinamento gamificado, promovendo educação em segurança digital de forma interativa.
@@ -15,6 +19,7 @@ O **EhFraude** é uma solução desenvolvida para auxiliar usuários na identifi
 O objetivo é reduzir o impacto de fraudes como phishing, golpes via Pix, falsas centrais bancárias, mensagens fraudulentas em redes sociais, SMS, e-mails maliciosos e outros ataques de engenharia social.
 
 ---
+
 
 ## Funcionalidades
 
@@ -55,7 +60,10 @@ O objetivo é reduzir o impacto de fraudes como phishing, golpes via Pix, falsas
 ### Front-end
 | Tecnologia | Descrição |
 |---|---|
-| React 18 | Interface do usuário |
+| HTML | Interface do usuário |
+| CSS | Interface do usuário |
+| JavaScript | Interface do usuário |
+| React 18 (EM DESENVOLVIMENTO)| Interface do usuário |
 
 ### Banco de dados
 | Tecnologia | Descrição |
@@ -69,11 +77,15 @@ O objetivo é reduzir o impacto de fraudes como phishing, golpes via Pix, falsas
 ```text
 EhFraude/
 ├── Back-end/
-│   ├── detector.py          # Detector de golpes
-│   ├── modo_treino.py       # Modo gamificado
-│   └── .env                 # Chaves de API (não commitado)
+│   ├── detector.py
+│   └── modo_treino.py
 ├── Front-end/
-│   └── ...                  # Interface React
+│   ├── index.html
+│   ├── style.css
+│   ├── Treino/
+│   ├── Noticias/
+│   ├── Perfil/
+│   └── Configuracoes/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
