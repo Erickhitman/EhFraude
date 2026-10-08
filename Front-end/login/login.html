@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de login provisória</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <main class="login-page">
+
+        <aside class="login-brand">
+            <div class="brand-logo">
+                <img src="Imagens/Logo em azul Transparente.png" alt="EhFraude?">
+            </div>
+            <p class="brand-text">
+                Verifique links e mensagens suspeitas com inteligência artificial.
+            </p>
+            <p class="brand-footer">
+                EhFraude? usa IA para auxiliar na detecção. Sempre revise as informações com cuidado.
+            </p>
+        </aside>
+
+        <section class="login-content">
+            <div class="login-card">
+                <header class="card-header">
+                    <h1>Entrar na conta</h1>
+                    <span class="card-hint">Acesso provisório</span>
+                </header>
+
+                <form id="form-login" class="card-body">
+                    <label for="email">E-MAIL</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                    <label for="senha">SENHA</label>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+
+                    <button type="submit">Entrar</button>
+                    <p id="mensagem"></p>
+
+                    <p class="card-note">
+                        <span class="note-icon">i</span>
+                        A IA pode cometer erros. Sempre confirme com fontes confiáveis.
+                    </p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html>
