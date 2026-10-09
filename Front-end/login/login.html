@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de login provisória</title>
+    <title>Entrar — EhFraude?</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 
         <aside class="login-brand">
             <div class="brand-logo">
-                <img src="../imagens/logo.png" alt="EhFraude?">
+                <img src="../Imagens/Logo.png" alt="EhFraude?">
             </div>
             <p class="brand-text">
                 Verifique links e mensagens suspeitas com inteligência artificial.
@@ -36,21 +36,21 @@
                     <input type="email" id="email" placeholder="Digite seu e-mail" required>
 
                     <label for="senha">SENHA</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    <input type="password" id="senha" placeholder="Digite sua senha" required><label class="show-pass"><input type="checkbox" id="ver-senha"> Mostrar senha</label>
 
                     <button type="submit">Entrar</button>
-                    <p id="mensagem"></p>
+                    <p id="mensagem" role="alert"></p><p class="login-dica">Acesso de teste: teste@ehfraude.com / 123456</p>
 
                     <p class="card-note">
                         <span class="note-icon">i</span>
                         A IA pode cometer erros. Sempre confirme com fontes confiáveis.
                     </p>
-                </form>
+                <a class="login-voltar" href="../index.html">Continuar sem entrar</a></form>
             </div>
         </section>
 
     </main>
 
-    <script src="login.js"></script>
+    <script src="../js/api.js"></script><script src="login.js"></script>
 </body>
 </html>

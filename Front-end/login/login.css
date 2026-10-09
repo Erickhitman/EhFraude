@@ -276,3 +276,8 @@ body {
 
 
 }
+
+.show-pass{display:flex;align-items:center;gap:.5rem;font-size:.8125rem;text-transform:none;letter-spacing:0;margin-top:.5rem;cursor:pointer}
+#mensagem{min-height:1.2em;font-size:.875rem;margin-top:.75rem}#mensagem.erro{color:#c0392b}#mensagem.ok{color:#2e7d4f}
+.login-dica{font-size:.8125rem;opacity:.7;margin-top:.5rem}
+.login-voltar{display:inline-block;margin-top:.75rem;font-size:.8125rem}
