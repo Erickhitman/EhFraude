@@ -216,6 +216,26 @@ body {
     border-radius: 50%;
 }
 
+.card-slide {
+    animation: fadeSlideUp 0.8s ease forwards;
+}
+
+.card-interiorslide {
+    animation: fadeSlideUp 1.2s ease forwards;
+}
+
+    @keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 800px) {
     .login-page {
         flex-direction: column;
@@ -253,4 +273,6 @@ body {
         padding-left: 20px;
         padding-right: 20px;
     }
+
+
 }
