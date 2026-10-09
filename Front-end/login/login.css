@@ -1,13 +1,13 @@
 
 :root {
-    --navy: #14233f;
-    --navy-dark: #0f1c33;
+    --navy: #1a2e4a;
+    --navy-dark: #243d5f;
     --navy-text: #8fa3bf;
-    --bg: #ecf0f5;
+    --bg: #edf0f4;
     --card: #ffffff;
     --border: #dde3ec;
     --input-bg: #eceff4;
-    --text: #1a2638;
+    --text: #1a2e4a;
     --muted: #5f7390;
     --label: #4a5d78;
     --accent: #4a90d9;
@@ -150,7 +150,7 @@ body {
 }
 
 .card-body input::placeholder {
-    color: #7d8ea6;
+    color: #1D334A;
 }
 
 .card-body input:focus {
