@@ -234,7 +234,6 @@ body {
   border-radius: 20px;
 }
 
-
 /* ── TIPS CARD ── */
 .tips-card {
   background: var(--primary-light);
@@ -497,7 +496,7 @@ body {
   padding: 0;
 }
 
-.botao{
+.botao {
   padding: 5px;
   border-radius: 20px;
   display: flex;
@@ -510,7 +509,7 @@ body {
   transition: 0.5s;
 }
 
-.botao:hover{
+.botao:hover {
   background: var(--primary);
   color: var(--primary-light);
 }

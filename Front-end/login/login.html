@@ -1,56 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar — EhFraude?</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — EhFraude?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 </head>
+
 <body>
-    <main class="login-page">
+  <div class="mobile-loading" id="mobileLoading" aria-hidden="true">
+    <div class="ml-content">
+      <img src="../Imagens/Logo em azul Transparente.png" alt="">
+      <div class="ml-spinner"><span></span><span></span><span></span></div>
+    </div>
+  </div>
 
-        <aside class="login-brand">
-            <div class="brand-logo">
-                <img src="../Imagens/Logo.png" alt="EhFraude?">
+  <header class="topo">
+    <a class="topo-logo" href="../index.html"><img src="../Imagens/Logo azul recortada.png" alt="EhFraude?"></a>
+    <button class="hamburger" id="hamburger" type="button" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <ul class="topo-links" id="nav-links">
+      <li><a href="../index.html">Início</a></li>
+      <li><a href="../Treino/EhFraude-treino.html">Modo de treino</a></li>
+      <li><a href="../Noticias/EhFraude-noticias.html">Notícias</a></li>
+    </ul>
+  </header>
+
+  <main class="auth-wrapper">
+    <div class="panel visual-panel">
+      <div class="vp-overlay"></div>
+      <div class="vp-content">
+        <div class="brand"><img src="../Imagens/Logo em azul Transparente.png" alt="EhFraude?"></div>
+        <p class="vp-tagline">Antes de clicar,<br>confira.</p>
+        <p class="vp-sub">Verifique links e mensagens suspeitas com inteligência artificial.</p>
+        <a href="cadastro.html" class="btn-vp" data-nav>Criar conta</a>
+      </div>
+    </div>
+
+    <div class="panel form-panel">
+      <div class="accent-line"></div>
+      <div class="form-view">
+        <div class="form-inner">
+          <h1 class="form-title">Bem-vindo de volta</h1>
+          <p class="form-sub">Entre para salvar seu progresso no modo de treino e acompanhar suas verificações.</p>
+
+          <form id="form-login" novalidate>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <div class="input-wrap has-ico"><input id="email" type="email" placeholder="seu@email.com" autocomplete="email"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg></div>
             </div>
-            <p class="brand-text">
-                Verifique links e mensagens suspeitas com inteligência artificial.
-            </p>
-            <p class="brand-footer">
-                EhFraude? usa IA para auxiliar na detecção. Sempre revise as informações com cuidado.
-            </p>
-        </aside>
-
-        <section class="login-content ">
-            <div class="login-card card-slide">
-                <header class="card-header">
-                    <h1>Entrar na conta</h1>
-                    <span class="card-hint">Acesso provisório</span>
-                </header>
-
-                <form id="form-login" class="card-body card-interiorslide">
-                    <label for="email">E-MAIL</label>
-                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
-
-                    <label for="senha">SENHA</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required><label class="show-pass"><input type="checkbox" id="ver-senha"> Mostrar senha</label>
-
-                    <button type="submit">Entrar</button>
-                    <p id="mensagem" role="alert"></p><p class="login-dica">Acesso de teste: teste@ehfraude.com / 123456</p>
-
-                    <p class="card-note">
-                        <span class="note-icon">i</span>
-                        A IA pode cometer erros. Sempre confirme com fontes confiáveis.
-                    </p>
-                <a class="login-voltar" href="../index.html">Continuar sem entrar</a></form>
+            <div class="field">
+              <label for="senha">Senha</label>
+              <div class="input-wrap has-ico">
+                <input id="senha" type="password" placeholder="••••••••" autocomplete="current-password"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <rect x="5" y="11" width="14" height="9" rx="2" />
+                  <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                </svg>
+                <button class="toggle-pass" type="button" data-alvo="senha" aria-pressed="false" aria-label="Mostrar senha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg></button>
+              </div>
             </div>
-        </section>
+            <div class="row-between">
+              <label class="check"><input type="checkbox" id="lembrar"> Lembrar de mim</label>
+              <a href="#" class="link" id="esqueci">Esqueci a senha</a>
+            </div>
+            <button class="btn-primary" id="btn-entrar" type="submit">Entrar</button>
+            <p class="error-msg" id="erro" role="alert" hidden></p>
+          </form>
 
-    </main>
+          <div class="mobile-alt">
+            <div class="divider"><span>ou</span></div><a class="btn-ghost" href="cadastro.html" data-nav>Criar conta</a>
+          </div>
+          <p class="switch-hint"><span class="desk">Não tem conta? <a href="cadastro.html" data-nav>Cadastre-se</a> · </span><a href="../index.html">Continuar sem entrar</a></p>
+          <p class="dica-teste">Acesso de teste: teste@ehfraude.com / 123456</p>
+        </div>
+      </div>
+    </div>
+  </main>
 
-    <script src="../js/api.js"></script><script src="login.js"></script>
+  <footer class="rodape">
+    <span>© 2026 EhFraude? — Detector e treinador de golpes digitais.</span>
+    <nav aria-label="Rodapé"><a href="../index.html">Início</a><a href="../Treino/EhFraude-treino.html">Treino</a><a href="../Noticias/EhFraude-noticias.html">Notícias</a></nav>
+  </footer>
+
+  <script src="../js/api.js"></script>
+  <script src="login.js"></script>
 </body>
+
 </html>

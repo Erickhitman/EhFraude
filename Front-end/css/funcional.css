@@ -1,19 +1,23 @@
-/* Estados e componentes novos. Não altera o visual existente (style.css e os css de cada página). */
 [hidden]{display:none!important}
-/* checkbox de termos (agora é um <input> de verdade, escondido sobre o .checkbox-box) */
+
+/* Cores */
+:root{--yellow:#E3A800;--yellow-bg:#FCEFC2;--yellow-ink:#6B4A00}
+.badge-warn{background:var(--yellow-bg);color:var(--yellow-ink)}
+
+/* Análise */
 .checkbox-row{position:relative;cursor:pointer}
 .checkbox-row input{position:absolute;opacity:0;width:17px;height:17px;margin:0;cursor:pointer}
 .checkbox-row input:checked+.checkbox-box{background:var(--primary);border-color:var(--primary);box-shadow:inset 0 0 0 3px var(--card)}
 .checkbox-row input:focus-visible+.checkbox-box{outline:2px solid var(--primary);outline-offset:2px}
 .form-error{color:var(--danger);font-size:.8125rem;min-height:1.2em;margin:0 0 .5rem}
 .btn-primary:disabled,.botao:disabled{opacity:.6;cursor:not-allowed}
-/* indicador de segurança */
+
 .indicator-circle{transition:border-color .3s,background .3s}
 #ind-pct{font-weight:700;font-size:.95rem}
 .indicator-card.is-safe .indicator-circle{border-color:var(--safe);background:var(--safe-bg)}
-.indicator-card.is-warn .indicator-circle{border-color:var(--orange);background:var(--warn-bg)}
+.indicator-card.is-warn .indicator-circle{border-color:var(--yellow);background:var(--yellow-bg)}
 .indicator-card.is-danger .indicator-circle{border-color:var(--danger);background:var(--danger-bg)}
-.is-safe #ind-pct{color:var(--safe)}.is-warn #ind-pct{color:var(--orange)}.is-danger #ind-pct{color:var(--danger)}
+.is-safe #ind-pct{color:var(--safe)}.is-warn #ind-pct{color:var(--yellow-ink)}.is-danger #ind-pct{color:var(--danger)}
 .indicator-card.is-loading .indicator-circle{border-top-color:var(--primary);animation:giro 1s linear infinite}
 @keyframes giro{to{transform:rotate(360deg)}}
 .indicator-card:is(.is-safe,.is-warn,.is-danger) .status-badges .badge{opacity:.35}
@@ -21,15 +25,18 @@
 .type-card.on{border-color:var(--primary);background:var(--primary-light)}
 .ind-detalhes{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8125rem;line-height:1.5;text-align:left}
 .ind-detalhes h4{font-size:.8125rem;margin:.6rem 0 .25rem}.ind-detalhes ul{padding-left:1.1rem}
-/* treino */
+
+/* Treino */
 .quiz-opt{cursor:pointer}.quiz-opt.locked{pointer-events:none}
 .quiz-opt:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 .feedback-card.err .fb-title,.feedback-card.err .fb-text{color:var(--orange)}
-/* notícias */
+
+/* Notícias */
 .news-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .chip{border:1px solid var(--border);background:var(--card);color:var(--muted);border-radius:99px;padding:.35rem .9rem;font:500 .8125rem "DM Sans",sans-serif;cursor:pointer}
 .chip:hover{border-color:var(--primary);color:var(--primary)}
 .chip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:#fff}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-/* logo do cabeçalho mobile saía esticada (largura fixa + altura máxima) */
-@media(max-width:800px){.mobile-header>img{height:50px;width:auto;max-width:200px;object-fit:contain}}
+
+/* Menu mobile */
+.mobile-nav-item{color:var(--muted)}.mobile-nav-item.active{color:var(--primary)}
