@@ -572,9 +572,9 @@ img {
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.4rem;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -677,7 +677,8 @@ img {
   }
 
   .about-grid,
-  .feat-grid {
+  .feat-grid,
+  .team-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -713,5 +714,28 @@ img {
   .cta-banner {
     margin: 3rem 5%;
     padding: 3rem 1.5rem;
+  }
+}
+
+/* Animação de entrada: sobe e aparece aos poucos (uma única vez) */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+  transition-delay: var(--delay, 0s);
+}
+
+.js-reveal .reveal.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

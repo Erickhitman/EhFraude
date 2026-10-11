@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "landing",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/caioo/AppData/Local/Temp/claude/C--Users-caioo-OneDrive-Documentos-EhFraude/b2f8ca60-8ee3-44aa-8d57-79b5dd580310/scratchpad/serve.js", "Landing Page", "5517"],
+      "port": 5517
+    }
+  ]
+}
