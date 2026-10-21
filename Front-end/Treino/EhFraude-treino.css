@@ -7,9 +7,9 @@
 }
 
 :root {
-  --primary: #1a2e4a;
-  --primary-mid: #243d5f;
-  --primary-light: #e8eef5;
+  --primary: #182d5a;
+  --primary-mid: #213e7a;
+  --primary-light: #e7ecf7;
   --orange: #c45c00;
   --safe: #2e7d4f;
   --safe-bg: #e8f5ee;
@@ -18,11 +18,11 @@
   --warn-bg: #fef0e6;
   --danger: #c0392b;
   --danger-bg: #fdf0ef;
-  --bg: #edf0f4;
+  --bg: #eceff7;
   --card: #ffffff;
-  --border: rgba(26, 46, 74, 0.13);
-  --text: #1a2e4a;
-  --muted: #6b7f96;
+  --border: rgba(24,45,90, 0.13);
+  --text: #182d5a;
+  --muted: #66789d;
   --radius: 0.625rem;
   --sidebar-w: 260px;
 }
@@ -216,7 +216,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(26, 46, 74, 0.06);
+  background: rgba(24,45,90, 0.06);
   border-radius: 20px;
   padding: 4px 10px;
 }
@@ -234,10 +234,11 @@ body {
   border-radius: 20px;
 }
 
+
 /* ── TIPS CARD ── */
 .tips-card {
   background: var(--primary-light);
-  border: 1px solid rgba(26, 46, 74, 0.12);
+  border: 1px solid rgba(24,45,90, 0.12);
   border-radius: 0.875rem;
   padding: 18px 20px;
 }
@@ -349,7 +350,7 @@ body {
     background 0.15s;
 }
 .quiz-opt:hover {
-  border-color: rgba(26, 46, 74, 0.35);
+  border-color: rgba(24,45,90, 0.35);
   background: var(--primary-light);
 }
 .opt-bullet {
@@ -496,20 +497,20 @@ body {
   padding: 0;
 }
 
-.botao {
+.botao{
   padding: 5px;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #1a2e4a;
+  border: 1px solid #182d5a;
   color: var(--text);
   background: var(--primary-light);
   cursor: pointer;
   transition: 0.5s;
 }
 
-.botao:hover {
+.botao:hover{
   background: var(--primary);
   color: var(--primary-light);
 }

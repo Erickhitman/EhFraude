@@ -6,19 +6,21 @@
   padding: 0;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
 
-.montserrat {
+
+.montserrat-<uniquifier> {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: <weight>;
   font-style: normal;
 }
 
 :root {
-  --primary: #1a2e4a;
-  --primary-mid: #243d5f;
-  --primary-light: #e8eef5;
+  --primary: #182d5a;
+  --primary-mid: #213e7a;
+  --primary-light: #e7ecf7;
   --orange: #c45c00;
   --safe: #2e7d4f;
   --safe-bg: #e8f5ee;
@@ -27,11 +29,11 @@
   --warn-bg: #fef0e6;
   --danger: #c0392b;
   --danger-bg: #fdf0ef;
-  --bg: #edf0f4;
+  --bg: #eceff7;
   --card: #ffffff;
-  --border: rgba(26, 46, 74, 0.13);
-  --text: #1a2e4a;
-  --muted: #6b7f96;
+  --border: rgba(24,45,90, 0.13);
+  --text: #182d5a;
+  --muted: #66789d;
   --radius: 0.625rem;
   --sidebar-w: 260px;
 }
@@ -310,6 +312,7 @@ body {
   letter-spacing: 0.8px;
   font-weight: 500;
 }
+
 
 .profile-head {
   display: flex;

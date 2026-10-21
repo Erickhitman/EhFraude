@@ -7,9 +7,9 @@
 }
 
 :root {
-  --primary: #1a2e4a;
-  --primary-mid: #243d5f;
-  --primary-light: #e8eef5;
+  --primary: #182d5a;
+  --primary-mid: #213e7a;
+  --primary-light: #e7ecf7;
   --orange: #c45c00;
   --safe: #2e7d4f;
   --safe-bg: #e8f5ee;
@@ -18,11 +18,11 @@
   --warn-bg: #fef0e6;
   --danger: #c0392b;
   --danger-bg: #fdf0ef;
-  --bg: #edf0f4;
+  --bg: #eceff7;
   --card: #ffffff;
-  --border: rgba(26, 46, 74, 0.13);
-  --text: #1a2e4a;
-  --muted: #6b7f96;
+  --border: rgba(24,45,90, 0.13);
+  --text: #182d5a;
+  --muted: #66789d;
   --radius: 0.625rem;
   --sidebar-w: 260px;
 }
@@ -205,7 +205,7 @@ body {
 /* ── TIPS CARD (reused from index.html / treino) ── */
 .tips-card {
   background: var(--primary-light);
-  border: 1px solid rgba(26, 46, 74, 0.12);
+  border: 1px solid rgba(24,45,90, 0.12);
   border-radius: 0.875rem;
   padding: 18px 20px;
   margin-top: 0.5rem;
@@ -277,7 +277,7 @@ body {
 
 .news-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(26, 46, 74, 0.08);
+  box-shadow: 0 8px 20px rgba(24,45,90, 0.08);
 }
 
 .news-thumb {
