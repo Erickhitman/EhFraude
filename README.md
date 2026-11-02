@@ -143,5 +143,5 @@ python Back-end/modo_treino.py
 |---|---|
 | Caio Figueiredo Santos | [@Caio](https://github.com/Caioon9) |
 | Erick da Rocha Soares | [@Erick](https://github.com/Erickhitman) |
-| Gabriel Nascimento dos Santos | [@Gabriel](https://github.com/Vastayo) |
+| Gabriel Nascimento dos Santos | [@Gabriel](https://github.com/GabrielDevNascimento) |
 | Nicolas Geovane Baptista de Jesus | [@Nicolas](https://github.com/NicolasJesus67) |
