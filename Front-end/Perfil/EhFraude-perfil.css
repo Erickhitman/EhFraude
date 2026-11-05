@@ -517,3 +517,13 @@ body {
     font-weight: 500;
   }
 }
+
+/* Privacidade e exclusão de conta */
+.setting-links { font-size: 0.8125rem; }
+.setting-links a { color: var(--primary-mid, #213e7a); }
+.btn-perigo { color: var(--danger); border-color: var(--danger); }
+.btn-perigo:hover { background: var(--danger-bg); }
+.btn-perigo:disabled { opacity: 0.6; cursor: not-allowed; }
+.excl-confirma { background: var(--danger-bg); border: 1px solid var(--danger); border-radius: var(--radius); padding: 0.875rem; margin-top: 0.75rem; font-size: 0.8125rem; }
+.excl-acoes { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.excl-msg { color: var(--danger); font-size: 0.8125rem; margin-top: 0.5rem; }

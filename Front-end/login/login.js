@@ -62,6 +62,10 @@ if ($('form-cadastro')) {
     if (!/^\S+@\S+\.\S+$/.test(email)) return mostrarErro('Digite um e-mail válido.');
     if (senha.value.length < 8) return mostrarErro('A senha precisa ter pelo menos 8 caracteres.');
     if (!$('termos').checked) return mostrarErro('Aceite os termos de uso para continuar.');
-    enviar(form, botao, 'Criar conta', () => API.cadastro(nome, email, senha.value), () => true);
+    enviar(form, botao, 'Criar conta', async () => {
+      const u = await API.cadastro(nome, email, senha.value, { finalidade: 'TERMOS_DE_USO', versao_termo: Consent.VERSAO });
+      Consent.registrar('TERMOS_DE_USO');
+      return u;
+    }, () => true);
   });
 }

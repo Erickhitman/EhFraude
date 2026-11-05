@@ -374,7 +374,7 @@ body {
 .checkbox-label {
   font-size: 0.8125rem;
   color: var(--primary);
-  text-decoration: underline;
+  text-decoration: none;
   text-underline-offset: 2px;
 }
 

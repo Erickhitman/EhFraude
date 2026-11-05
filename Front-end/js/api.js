@@ -17,6 +17,23 @@ const Store = {
   set(s) { try { localStorage.setItem('ehf_prog', JSON.stringify(s)); } catch {} }
 };
 
+/* Consentimento (LGPD) — grava o aceite dos termos com a versão e a data */
+const Consent = {
+  VERSAO: '1.0', CHAVE: 'ehf_consent',
+  lista() { try { return JSON.parse(localStorage.getItem(Consent.CHAVE)) || []; } catch { return []; } },
+  vigente(finalidade = 'TERMOS_DE_USO') {
+    const ult = Consent.lista().filter((c) => c.finalidade === finalidade).pop();
+    return !!ult && ult.concedido && ult.versao_termo === Consent.VERSAO;
+  },
+  async registrar(finalidade = 'TERMOS_DE_USO', concedido = true) {
+    const reg = { finalidade, concedido, versao_termo: Consent.VERSAO, data_registro: new Date().toISOString() };
+    try { localStorage.setItem(Consent.CHAVE, JSON.stringify([...Consent.lista(), reg])); } catch {}
+    if (Session.get()) { try { await API.consentimento(reg); } catch {} }
+    return reg;
+  },
+  limpar() { try { localStorage.removeItem(Consent.CHAVE); } catch {} }
+};
+
 /* API */
 const API = {
   BASE: 'http://localhost:3000/api',
@@ -30,7 +47,9 @@ const API = {
     return j;
   },
   login: (email, senha) => API.req('/auth/login', { method: 'POST', body: JSON.stringify({ email, senha }) }),
-  cadastro: (nome, email, senha) => API.req('/auth/cadastro', { method: 'POST', body: JSON.stringify({ nome, email, senha }) }),
+  cadastro: (nome, email, senha, consentimento) => API.req('/auth/cadastro', { method: 'POST', body: JSON.stringify({ nome, email, senha, consentimento }) }),
+  consentimento: (c) => API.req('/consentimento', { method: 'POST', body: JSON.stringify(c) }),
+  excluirConta: () => API.req('/conta/exclusao', { method: 'POST' }),
   analisar: (link, mensagem) => API.req('/analisar', { method: 'POST', body: JSON.stringify({ link, mensagem }) }),
   desafio: (nivel) => API.req('/treino/desafio?nivel=' + nivel),
   responder: (id, indice, tempoMs) => API.req('/treino/responder', { method: 'POST', body: JSON.stringify({ id, indice, tempoMs }) }),
@@ -45,13 +64,13 @@ async function mock(path, opts) {
   if (path.startsWith('/auth/login')) {
     await wait(500);
     if (body.email.trim().toLowerCase() === 'teste@ehfraude.com' && body.senha === '123456')
-      return { token: 'mock', nome: 'Mariana Souza', email: 'teste@ehfraude.com', telefone: '(11) 9XXXX-XXXX', desde: 'março de 2026' };
+      return { token: 'mock', nome: 'Mariana Souza', email: 'teste@ehfraude.com', desde: 'março de 2026' };
     throw new Error('E-mail ou senha incorretos.');
   }
   if (path.startsWith('/auth/cadastro')) {
     await wait(600);
     if (body.email.trim().toLowerCase() === 'teste@ehfraude.com') throw new Error('Este e-mail já está cadastrado.');
-    return { token: 'mock', nome: body.nome.trim(), email: body.email.trim(), telefone: '—', desde: new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) };
+    return { token: 'mock', nome: body.nome.trim(), email: body.email.trim(), desde: new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) };
   }
   if (path.startsWith('/analisar')) { await wait(900); return mockAnalise(body); }
   if (path.startsWith('/treino/desafio')) {
@@ -67,6 +86,8 @@ async function mock(path, opts) {
     const d = DESAFIOS.find((x) => x.id === body.id), acertou = body.indice === d.correta;
     return { acertou, indiceCorreto: d.correta, explicacao: d.explicacao, xp: acertou ? 20 + (body.tempoMs < 8000 ? 5 : 0) : 0 };
   }
+  if (path.startsWith('/consentimento')) { await wait(150); return { ok: true }; }
+  if (path.startsWith('/conta/exclusao')) { await wait(600); return { status: 'PENDENTE' }; }
   if (path.startsWith('/noticias')) { await wait(300); return NOTICIAS; }
   throw new Error('Rota não encontrada: ' + path);
 }
