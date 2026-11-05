@@ -7,6 +7,7 @@ const lista = (ul, itens) => ul.replaceChildren(...itens.map((t) => h('li', '', 
 /* Topbar */
 (() => {
   const tr = $('.topbar-right'); if (!tr) return;
+  const selo = $('.topbar-badge', tr); if (selo && API.MOCK) selo.textContent = 'Modo demonstração';
   const u = Session.get(), raiz = page === 'inicio' ? '' : '../';
   const a = h('a', 'topbar-badge', u ? u.nome.split(' ')[0] : 'Entrar');
   a.href = raiz + (u ? 'Perfil/EhFraude-perfil.html' : 'login/login.html'); a.style.textDecoration = 'none';
@@ -21,12 +22,14 @@ const PAGES = {
     const ESTADO = { GOLPE: ['danger', 'Provável golpe'], SUSPEITO: ['warn', 'Atenção: suspeito'], SEGURO: ['safe', 'Parece seguro'] };
     const marca = () => { $('#tc-link').classList.toggle('on', !!link.value.trim()); $('#tc-texto').classList.toggle('on', !!msg.value.trim()); };
     link.addEventListener('input', marca); msg.addEventListener('input', marca);
+    if (Consent.vigente()) $('#termos').checked = true;
     link.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
     btn.addEventListener('click', async () => {
       erro.textContent = '';
       const l = link.value.trim(), m = msg.value.trim();
       if (!l && !m) { erro.textContent = 'Cole um link ou uma mensagem para analisar.'; return; }
       if (!$('#termos').checked) { erro.textContent = 'Aceite os termos de uso para continuar.'; return; }
+      if (!Consent.vigente()) Consent.registrar();
       btn.disabled = true; const rotulo = btn.innerHTML; btn.textContent = 'Analisando…';
       card.className = 'indicator-card is-loading'; $('#ind-pct').hidden = true; $('#ind-dash').hidden = false;
       $('#ind-title').textContent = 'Analisando…'; $('#ind-sub').textContent = 'Isso leva alguns segundos'; $('#ind-detalhes').hidden = true;
@@ -126,8 +129,23 @@ const PAGES = {
     const s = Store.get(), ini = u.nome.split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
     $('#p-avatar').textContent = ini; $('#p-nome').textContent = u.nome; $('#p-email').textContent = `${u.email} · membro desde ${u.desde}`;
     $('#v-verif').textContent = s.verif; $('#v-evit').textContent = s.evit; $('#v-nivel').textContent = 'Nível ' + nivel(s.xp);
-    $('#d-nome').textContent = u.nome; $('#d-email').textContent = u.email; $('#d-tel').textContent = u.telefone; $('#d-desde').textContent = u.desde;
+    $('#d-nome').textContent = u.nome; $('#d-email').textContent = u.email; $('#d-desde').textContent = u.desde;
     $('#btn-sair').onclick = () => { Session.clear(); location.href = '../login/login.html'; };
+
+    /* Exclusão de conta e dados (LGPD, Art. 18) */
+    const ex = $('#btn-excluir'), cf = $('#excl-confirma'), sim = $('#btn-excl-sim'), msg = $('#excl-msg');
+    ex.onclick = () => { cf.hidden = false; ex.hidden = true; $('#btn-excl-nao').focus(); };
+    $('#btn-excl-nao').onclick = () => { cf.hidden = true; ex.hidden = false; msg.hidden = true; ex.focus(); };
+    sim.onclick = async () => {
+      sim.disabled = true; sim.textContent = 'Enviando…'; msg.hidden = true;
+      try { await API.excluirConta(); }
+      catch (e) { sim.disabled = false; sim.textContent = 'Sim, excluir'; msg.textContent = e.message; msg.hidden = false; return; }
+      Session.clear(); Consent.limpar(); try { localStorage.removeItem('ehf_prog'); } catch {}
+      const fim = h('div', 'panel'), corpo = h('div', 'panel-body'), voltar = h('a', 'btn-secondary', 'Voltar ao início');
+      voltar.href = '../index.html'; voltar.style.textDecoration = 'none'; voltar.style.display = 'inline-block';
+      const txt = h('p', '', 'Pedido de exclusão registrado. Vamos excluir a sua conta e os seus dados em até 15 dias e avisar você por e-mail. Os dados guardados neste aparelho já foram apagados.');
+      txt.style.marginBottom = '1rem'; corpo.append(txt, voltar); fim.append(corpo); $('main').replaceChildren(fim);
+    };
   }
 };
 if (PAGES[page]) PAGES[page]();

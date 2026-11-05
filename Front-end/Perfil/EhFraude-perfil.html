@@ -128,10 +128,6 @@
               <p id="d-email">mariana.souza@email.com</p>
             </div>
             <div>
-              <p class="section-label">Telefone</p>
-              <p id="d-tel">(11) 9XXXX-XXXX</p>
-            </div>
-            <div>
               <p class="section-label">Membro desde</p>
               <p id="d-desde">Março de 2026</p>
             </div>
@@ -172,6 +168,37 @@
               Tudo certo
             </span>
           </div>
+        </div>
+      </div>
+
+      <!-- Privacidade e dados -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Privacidade e dados</h2>
+        </div>
+        <div class="panel-body">
+          <div class="setting-row">
+            <div>
+              <strong>Termos de Uso e Política de Privacidade</strong>
+              <span>Veja como tratamos os seus dados.</span>
+            </div>
+            <span class="setting-links"><a href="../termos.html" target="_blank" rel="noopener">Termos</a> · <a href="../privacidade.html" target="_blank" rel="noopener">Privacidade</a></span>
+          </div>
+          <div class="setting-row">
+            <div>
+              <strong>Excluir conta e dados</strong>
+              <span>Apaga o seu cadastro, o histórico e o progresso no treino. Não dá para desfazer.</span>
+            </div>
+            <button class="btn-secondary btn-perigo" id="btn-excluir" type="button">Excluir</button>
+          </div>
+          <div class="excl-confirma" id="excl-confirma" hidden>
+            <p>Tem certeza? Esta ação exclui a sua conta e todos os seus dados.</p>
+            <div class="excl-acoes">
+              <button class="btn-secondary" id="btn-excl-nao" type="button">Cancelar</button>
+              <button class="btn-secondary btn-perigo" id="btn-excl-sim" type="button">Sim, excluir</button>
+            </div>
+          </div>
+          <p class="excl-msg" id="excl-msg" role="alert" hidden></p>
         </div>
       </div>
 
