@@ -26,7 +26,7 @@ O objetivo é reduzir o impacto de fraudes como phishing, golpes via Pix, falsas
 ### 🔍 Detector de Fraudes
 
 - Análise de mensagens utilizando modelos de IA
-- Classificação em **GOLPE**, **SUSPEITO** ou **SEGURO**
+- Classificação em **PERIGO**, **ATENÇÃO** ou **SEGURO**
 - Cálculo da probabilidade de fraude com critério matemático acumulativo
 - Explicação dos principais indícios encontrados
 - Recomendação de ações seguras ao usuário
