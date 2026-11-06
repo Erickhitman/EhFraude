@@ -22,7 +22,8 @@ const PAGES = {
     const ESTADO = { GOLPE: ['danger', 'Provável golpe'], SUSPEITO: ['warn', 'Atenção: suspeito'], SEGURO: ['safe', 'Parece seguro'] };
     const marca = () => { $('#tc-link').classList.toggle('on', !!link.value.trim()); $('#tc-texto').classList.toggle('on', !!msg.value.trim()); };
     link.addEventListener('input', marca); msg.addEventListener('input', marca);
-    if (Consent.vigente()) $('#termos').checked = true;
+    const marcaTermos = () => { if (Consent.aceiteMarcado()) $('#termos').checked = true; };
+    marcaTermos(); addEventListener('storage', marcaTermos); addEventListener('pageshow', marcaTermos); addEventListener('focus', marcaTermos);
     link.addEventListener('keydown', (e) => { if (e.key === 'Enter') btn.click(); });
     btn.addEventListener('click', async () => {
       erro.textContent = '';

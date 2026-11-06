@@ -32,6 +32,13 @@ table{border-collapse:collapse;width:100%;font-size:.88rem}
 th,td{text-align:left;vertical-align:top;padding:9px 11px;border-bottom:1px solid var(--border)}
 th{background:var(--primary-light)}tr:last-child td{border-bottom:0}
 .outro{margin-top:26px;padding-top:16px;border-top:1px solid var(--border);font-size:.92rem}
+main{padding-bottom:0}
+.acoes{position:sticky;bottom:0;margin:18px -16px 0;background:var(--card);border-top:1px solid var(--border);box-shadow:0 -4px 14px rgba(24,45,90,.08);padding:12px 16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.acoes button{font:600 .95rem "DM Sans",sans-serif;border-radius:var(--radius);padding:.7rem 1.4rem;cursor:pointer;border:1px solid var(--primary)}
+#btn-aceitar{background:var(--primary);color:#fff}#btn-aceitar:hover{background:var(--primary-mid)}
+#btn-voltar{background:var(--card);color:var(--primary)}#btn-voltar:hover{background:var(--primary-light)}
+.acoes button:focus-visible{outline:2px solid var(--primary-mid);outline-offset:2px}
+#aviso-fecha{width:100%;text-align:center;font-size:.88rem;color:var(--muted);margin:0}
 footer{text-align:center;color:var(--muted);font-size:.82rem;padding:18px 16px 26px}
 footer a{margin:0 8px}
 @media(max-width:600px){article{padding:22px 18px}h1{font-size:1.4rem}}
@@ -106,7 +113,36 @@ footer a{margin:0 8px}
 <p>Dúvidas sobre estes Termos: <mark>[E-MAIL DO PROJETO]</mark>.</p>
 <p class="outro">Veja também a <a href="privacidade.html">Política de Privacidade</a>.</p>
 </article>
+<div class="acoes">
+<button type="button" id="btn-aceitar">Li e aceito</button>
+<button type="button" id="btn-voltar">Voltar sem aceitar</button>
+<p id="aviso-fecha" role="status" hidden></p>
+</div>
 </main>
 <footer>© 2026 EhFraude? — Detector e treinador de golpes digitais.<br><a href="termos.html" aria-current="page">Termos de Uso</a><a href="privacidade.html">Política de Privacidade</a></footer>
+<script src="js/api.js"></script>
+<script>
+(function () {
+  var aceitar = document.getElementById('btn-aceitar'), voltar = document.getElementById('btn-voltar'), aviso = document.getElementById('aviso-fecha');
+  function destino() {
+    try {
+      var r = new URL(document.referrer);
+      if (r.origin === location.origin && r.pathname.indexOf('termos.html') < 0 && r.pathname.indexOf('privacidade.html') < 0) return r.href;
+    } catch (e) {}
+    return 'index.html';
+  }
+  function sair() {
+    window.close();
+    setTimeout(function () { if (!window.closed) location.href = destino(); }, 250);
+  }
+  aceitar.addEventListener('click', function () {
+    Consent.marcarAceite();
+    aceitar.disabled = true; voltar.hidden = true;
+    aviso.textContent = 'Aceite marcado. Voltando para o site…'; aviso.hidden = false;
+    setTimeout(sair, 400);
+  });
+  voltar.addEventListener('click', sair);
+})();
+</script>
 </body>
 </html>

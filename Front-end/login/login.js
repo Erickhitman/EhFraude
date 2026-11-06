@@ -48,6 +48,8 @@ if ($('form-login')) {
 /* Cadastro */
 if ($('form-cadastro')) {
   const form = $('form-cadastro'), botao = $('btn-criar'), senha = $('senha'), fill = $('strengthFill'), rot = $('strengthLabel');
+  const marcaTermos = () => { if (Consent.aceiteMarcado()) $('termos').checked = true; };
+  marcaTermos(); addEventListener('storage', marcaTermos); addEventListener('pageshow', marcaTermos); addEventListener('focus', marcaTermos);
   const NIVEIS = [{ p: '0%', c: '#d8dfee', t: 'Força da senha' }, { p: '25%', c: '#C0392B', t: 'Fraca' }, { p: '50%', c: '#E3A800', t: 'Razoável' }, { p: '75%', c: '#213e7a', t: 'Boa' }, { p: '100%', c: '#2E7D4F', t: 'Forte' }];
   senha.addEventListener('input', () => {
     const v = senha.value; let pts = 0;

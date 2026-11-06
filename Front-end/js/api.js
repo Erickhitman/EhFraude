@@ -31,7 +31,11 @@ const Consent = {
     if (Session.get()) { try { await API.consentimento(reg); } catch {} }
     return reg;
   },
-  limpar() { try { localStorage.removeItem(Consent.CHAVE); } catch {} }
+  /* Botão "Li e aceito" das páginas de termos: só marca a caixinha nas telas (o registro é feito ao analisar ou cadastrar) */
+  CHAVE_UI: 'ehf_aceite_ui',
+  marcarAceite() { try { localStorage.setItem(Consent.CHAVE_UI, Consent.VERSAO); } catch {} },
+  aceiteMarcado() { let v = null; try { v = localStorage.getItem(Consent.CHAVE_UI); } catch {} return Consent.vigente() || v === Consent.VERSAO; },
+  limpar() { try { localStorage.removeItem(Consent.CHAVE); localStorage.removeItem(Consent.CHAVE_UI); } catch {} }
 };
 
 /* API */
