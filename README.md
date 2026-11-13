@@ -52,9 +52,9 @@ O objetivo é reduzir o impacto de fraudes como phishing, golpes via Pix, falsas
 |---|---|
 | Python 3.12 | Linguagem principal |
 | Groq API | Acesso aos modelos de IA |
-| Llama 3.3 70B | Modelo principal de IA |
-| Qwen 3 32B | Modelo de fallback primário |
-| Qwen 3.6 27B | Modelo de fallback secundário |
+| Gpt-oss-120b | Modelo principal de IA |
+| Gpt-oss-20b | Modelo de fallback primário |
+| Qwen3.6-27b| Modelo de fallback secundário |
 | python-dotenv | Gerenciamento de variáveis de ambiente |
 
 ### Front-end
